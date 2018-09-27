@@ -1,0 +1,272 @@
+#1 Tutorial ( random dot)
+
+#include <SFML/Graphics.hpp>
+#include "random.h"
+using namespace sf;
+int main()
+{
+    RenderWindow window(VideoMode(1200,500),"xxx");
+    CircleShape shape(randoms());
+    shape.setPosition(randomx(), randomy());
+    shape.setFillColor( Color::Green);
+
+    while (window.isOpen())
+    {
+        Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type ==  Event::Closed)
+                window.close();
+        }
+
+        window.clear();
+        window.draw(shape);
+        window.display();
+    }
+    return 0;
+}
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+#2 MOMENT :
+
+#include <SFML/Graphics.hpp>    //Including SFML graphics library
+
+using namespace sf;
+class Game                      //  Class named "Game" created
+{
+private:                        //Access specifier "private"
+    void processevent();        //Function Prototype
+    void update();
+    void render();
+    RenderWindow mWindow;       //Predefined class RenderWindow with object "mWindow"
+    CircleShape mCircle;        //Predefined class CircleShape with object "mCircle"
+
+public:
+    Game():                     //Parameterized constructer "Game" with the following parameters
+        mWindow(VideoMode(640,480),"First program"),    //Syntax for window rendering
+        mCircle()
+        {
+            mCircle.setRadius(40);          //Syntax for radius
+            mCircle.setPosition(320,240);   //Syntax for position
+            mCircle.setFillColor(Color::White); //Syntax for color
+        }
+    void run()
+    {
+        while (mWindow.isOpen())
+        {
+                processevent();
+                update();
+                render();
+        }
+    }
+    void handlePlayerInput(Keyboard::Key,bool);
+} ;
+
+int main()
+{
+    Game g;
+    g.run();
+    return 0;
+}
+
+void Game::processevent()       //Function to process the game. The game loop
+{
+    Event event;
+    while (mWindow.pollEvent(event))
+    {
+        switch (event.type)
+        {
+            case Event::KeyPressed:
+            handlePlayerInput(event.key.code, true);
+            break;
+            case Event::KeyReleased:
+            handlePlayerInput(event.key.code, false);
+            break;
+            case Event::Closed:
+            mWindow.close();
+            break;
+        }
+    }
+}
+
+void Game::handlePlayerInput(Keyboard::Key key,bool isPressed)
+{
+    bool mIsMovingUp,mIsMovingDown,mIsMovingLeft,mIsMovingRight;
+    if (key == Keyboard::W)
+        mIsMovingUp = isPressed;
+    else if (key == Keyboard::S)
+        mIsMovingDown = isPressed;
+    else if (key == Keyboard::A)
+        mIsMovingLeft = isPressed;
+    else if (key == Keyboard::D)
+        mIsMovingRight = isPressed;
+}
+
+void Game::update()     //Function to clear the window
+{
+    bool mIsMovingUp,mIsMovingDown,mIsMovingLeft,mIsMovingRight;
+    Vector2f movement(0.f, 0.f);
+    if (mIsMovingUp)
+        movement.y -= 1.f;
+    if (mIsMovingDown)
+        movement.y += 1.f;
+    if (mIsMovingLeft)
+        movement.x -= 1.f;
+    if (mIsMovingRight)
+        movement.x += 1.f;
+mCircle.move(movement);
+}
+
+void Game::render()     //Function to display window and print the required circle
+{
+    mWindow.draw(mCircle);
+    mWindow.display();
+}
+
+
+
+_______________________________________________________________________________________________________
+ // outside function
+    object::object()
+        :window( VideoMode(500,400), "Space Invaders!" )
+        {}
+    void object::run()
+    {
+        while(window.isOpen())
+        {
+            window.clear();
+            window.display();
+            window.draw(triangle);
+        }
+    }
+_______________________________________________________________________________________________________
+
+# 3
+
+#include <iostream>
+#include <sstream>
+#include <cstdlib>
+#include <SFML/Graphics.hpp>
+//#include "headers/random.h"
+//#include "OBJECT-aray.h"
+
+using namespace sf;
+using namespace std;
+int main()
+{
+    float windowWidth = 800;
+    float windowHeight = 600;
+    // making window
+    RenderWindow window(VideoMode(windowWidth, windowHeight), "Project");
+    //vector <RectangleShape> rec(200);
+    RectangleShape rec(Vector2f(100,50));
+    rec.setFillColor(Color::Red);
+    RectangleShape rec1(Vector2f(50, 75));
+    rec1.setFillColor(Color::Green);
+
+    // writing text
+    /*Text hud;
+    Font font;
+    font.loadFromFile("DS-DIGIT.ttf");
+    hud.setFont(font);
+    hud.setPosition(windowWidth/3.5,0);
+    hud.setCharacterSize(50);
+    hud.setOutlineThickness(2);
+    hud.setFillColor(Color::White);
+    hud.setOutlineColor(Color::Black);
+    stringstream ss;
+    ss<< "Welcome to the game ";
+    hud.setString(ss.str()); */
+    // making lower belt
+        while (window.isOpen())
+    {
+        window.clear();
+        //window.draw(hud);
+        // rectangles (obstacles)
+        for (int i=0;i<1200;i=i+100)
+        {
+            rec.setPosition(i,windowHeight);
+            rec.setFillColor(Color::White);
+            window.draw(rec);
+        }
+        rec1.setPosition(windowWidth,windowHeight-50);
+        rec1.setFillColor(Color::Blue);
+        window.draw(rec1);
+        window.display();
+    }
+    return 0;
+}
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+oU9Ef6tX3J
+
+#include <sfml/Graphics.hpp>
+//#include "OBJECT-aray.h"
+
+using namespace sf;
+using namespace std;
+//void obs(int,int);
+
+    // making window
+    float windowWidth = 1200;
+    float windowHeight = 600;
+    RenderWindow window(VideoMode (windowWidth,windowHeight),"Project");
+    Sprite sprite1;
+
+int main()
+{
+    // initilizing triangles
+    /*RectangleShape rec(Vector2f(100,50));
+    rec.setFillColor(Color::Red);
+    RectangleShape rec1(Vector2f(50, 75));
+    rec1.setFillColor(Color::Green);*/
+
+    //texture for obstacles
+    Texture texture;
+    texture.loadFromFile("images/stones.png");
+    Sprite sprite;
+    sprite.setTexture(texture);
+    sprite.scale(Vector2f(0.5f, 0.6f));
+    Texture tet1;
+    tet1.loadFromFile("images/box.png");
+    sprite1.setTexture(tet1);
+    sprite1.scale(Vector2f(0.5f, 0.5f));
+
+    Texture cloud;
+    Sprite sprite_cloud;
+    cloud.loadFromFile("images/cloud.png");
+    sprite_cloud.setTexture(cloud);
+    sprite_cloud.scale(Vector2f(0.8f, 0.8f));
+
+    // making lower belt
+        while (window.isOpen())
+    {
+         Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type ==  Event::Closed)
+                window.close();
+        }
+        window.clear(Color(200,222,200,0));
+        // rectangles (obstacles)
+        for (int i=0;i<1200;i=i+85)
+        {
+            sprite.setPosition(Vector2f(i, windowHeight-60));
+            window.draw(sprite);
+        }
+        obs(200,467);
+        obs(250,467);
+        obs(550,467);
+        obs(550,450);
+        obs(900,467);
+        sprite.setPosition(Vector2f(200,0));
+        window.draw(sprite_cloud);
+        window.display();
+    }
+    return 0;
+}
+void obs(int x,int y){
+    sprite1.setPosition(Vector2f(x,y));
+    window.draw(sprite1);
+}
+

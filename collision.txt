@@ -1,0 +1,13 @@
+#Method 1:
+
+for (sf::Sprite enemy: enemies) {
+       for (sf::Sprite laser : lasers) {
+          if (enemy.getGlobalBounds().intersects(laser.getGlobalBounds())) {
+            enemies.remove(enemy);
+            lasers.remove(laser);
+          }
+       }
+    }
+
+#Method 2:
+
